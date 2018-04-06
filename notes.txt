@@ -1,0 +1,1 @@
+cordova plugin add cordova-plugin-googlemaps \ --variable API_KEY_FOR_ANDROID="AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig"
