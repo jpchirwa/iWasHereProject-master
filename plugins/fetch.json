@@ -70,8 +70,7 @@
     },
     "is_top_level": true,
     "variables": {
-      "API_KEY_FOR_ANDROID": "AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig",
-      "PLAY_SERVICES_VERSION": "11.8.0"
+      "API_KEY_FOR_ANDROID": "AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig"
     }
   }
 }
