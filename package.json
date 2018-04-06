@@ -9,6 +9,7 @@
     "cordova-plugin-dbmeter": "^2.1.0",
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-googlemaps": "file:../../Desktop/cordova-plugin-googlemaps",
     "cordova-plugin-lightsensor": "^1.0.0",
     "cordova-plugin-media-capture": "^3.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -24,11 +25,16 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-geolocation": {},
       "cordova-plugin-dbmeter": {},
-      "cordova-plugin-lightsensor": {}
+      "cordova-plugin-lightsensor": {},
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig",
+        "PLAY_SERVICES_VERSION": "11.8.0",
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
+      }
     },
     "platforms": [
-      "browser",
-      "android"
+      "android",
+      "browser"
     ]
   },
   "main": "index.js",

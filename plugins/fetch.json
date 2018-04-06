@@ -62,5 +62,16 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-googlemaps": {
+    "source": {
+      "type": "local",
+      "path": "C:\\Users\\ZOE.DESKTOP-0MTGI64\\Downloads\\iWasHereProject-master\\node_modules\\cordova-plugin-googlemaps"
+    },
+    "is_top_level": true,
+    "variables": {
+      "API_KEY_FOR_ANDROID": "AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig",
+      "PLAY_SERVICES_VERSION": "11.8.0"
+    }
   }
 }
