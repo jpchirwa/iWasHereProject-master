@@ -39,14 +39,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-geolocation": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-geolocation@^4.0.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-dbmeter": {
     "source": {
       "type": "registry",
@@ -63,14 +55,23 @@
     "is_top_level": true,
     "variables": {}
   },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation@4.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
   "cordova-plugin-googlemaps": {
     "source": {
-      "type": "local",
-      "path": "C:\\Users\\ZOE.DESKTOP-0MTGI64\\Downloads\\iWasHereProject-master\\node_modules\\cordova-plugin-googlemaps"
+      "type": "registry",
+      "id": "cordova-plugin-googlemaps"
     },
     "is_top_level": true,
     "variables": {
-      "API_KEY_FOR_ANDROID": "AIzaSyALB51uma5dVYxl5CtYGjnreJMG8Gnl4Ig"
+      "API_KEY_FOR_ANDROID": "AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE",
+      "PLAY_SERVICES_VERSION": "12.0.0"
     }
   }
 }

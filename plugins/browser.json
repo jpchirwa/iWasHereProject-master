@@ -13,9 +13,6 @@
     "cordova-plugin-dbmeter": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
     "cordova-plugin-lightsensor": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -26,6 +23,9 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-googlemaps": {
