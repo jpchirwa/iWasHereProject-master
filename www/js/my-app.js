@@ -23,6 +23,7 @@ var view2 = myApp.addView('#view-2', {
 });
 var view3 = myApp.addView('#view-3');
 var view4 = myApp.addView('#view-4');
+var view4 = myApp.addView('#view-5');
 function onLoad(){
     document.addEventListener("deviceready", onDeviceReady, false);
     document.addEventListener("backbutton", onBackKeyDown, false);
@@ -93,22 +94,20 @@ function error(message) {
     }
 }
 function upload() {
-        navigator.camera.getPicture(onSuccess, onFail, {
-        quality: 100,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-    });
-
-    function onSuccess(imageURL) {
-        var image = document.getElementById('uploadFile');
-        image.style.display = 'block';
-        image.src = "data:image/jpeg;base64," + imageURL;
-    }
-
-    function onFail(message) {
-        alert('Failed because: ' + message);
-    }
-}
+            document.getElementById("file-input").onchange = function (e) {
+                var file = e.target.files[0]
+                if (file && file.name) {
+                    EXIF.getData(file, function () {
+                        var exifData = EXIF.pretty(this);
+                        if (exifData) {
+                            alert(exifData);
+                        } else {
+                            alert("No EXIF data found in image '" + file.name + "'.");
+                        }
+                    });
+                }
+            }
+        }
 function info() {
     // onSuccess Callback
     // This method accepts a Position object, which contains the
@@ -209,3 +208,23 @@ function watchMapPosition() {
     return navigator.geolocation.watchPosition
     (onMapWatchSuccess, onMapError, { enableHighAccuracy: true });
 }
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+        document.getElementById("blah").onclick = function () {
+            EXIF.getData(this, function () {
+                alert(EXIF.pretty(this));
+                location.reload();
+            });
+        }
+    }

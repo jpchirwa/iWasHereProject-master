@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE&libraries=places"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="utf-8">
@@ -52,6 +52,7 @@
                         <div class="content-block-title"></div>
                         <div class="content-block">
                             <div id="map"></div>
+                            <div id="places"></div>
                             <script>
                             </script>
 
@@ -116,22 +117,6 @@
                         <div class="content-block-title">iWasHere</div>
                         <div class="content-block">
                             <input id="file-input" type="file" />
-                            <script>
-                                document.getElementById("file-input").onchange = function (e) {
-                                    var file = e.target.files[0]
-                                    if (file && file.name) {
-                                        EXIF.getData(file, function () {
-                                            var exifData = EXIF.pretty(this);
-                                            if (exifData) {
-                                                alert(exifData);
-                                            } else {
-                                                alert("No EXIF data found in image '" + file.name + "'.");
-                                            }
-                                        });
-                                    }
-                                }
-                            </script>
-                            <img style="width:100%;height:100%" id="uploadFile" src="" />
                         </div>
                     </div>
                 </div>
@@ -158,6 +143,25 @@
                 </div>
             </div>
         </div>
+        <div id="view-5" class="view tab">
+            <div class="pages navbar-fixed">
+                <div data-page="index-5" class="page">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="center">iWasHere Camera</div>
+                        </div>
+                    </div>
+                    <div class="page-content">
+                        <div class="list-block">
+                        </div>
+                        <div class="content-block">
+                            <input type='file' id="blahblah" onchange="readURL(this);" />
+                            <img id="blah" src="" alt="your image" onchange="readPic();"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Bottom Tabbar-->
         <div class="toolbar tabbar tabbar-labels">
             <div class="toolbar-inner ">
@@ -165,6 +169,7 @@
                 <a href="#view-2" onclick="info();" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Inbox</span></a>
                 <a href="#view-3" onclick="upload();" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Upload</span></a>
                 <a href="#view-4" onclick="camera();" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Camera</span></a>
+                <a href="#view-5" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Places</span></a>
             </div>
         </div>
     </div>
