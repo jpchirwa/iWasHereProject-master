@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE&libraries=places"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="utf-8">
@@ -20,6 +20,42 @@
 <link rel="stylesheet" href="css/framework7.material.colors.min.css">
 </head>
 <body onload="onLoad()">
+    <div class="login-screen modal-in">
+        <div class="view">
+            <div class="page">
+                <div class="page-content login-screen-content">
+                    <div class="login-screen-title">Work Roster</div>
+                    <form id="my-form">
+                        <div class="list-block">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">Username</div>
+                                        <div class="item-input">
+                                            <input type="text" id="username" placeholder="Your username">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">Password</div>
+                                        <div class="item-input">
+                                            <input type="password" id="password" placeholder="Your password">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-block">
+                            <ul>
+                                <li><a href="#index" onclick="login()" class="button form-from-data">Sign in</a></li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- App root element -->
 <div id="app">
     <!-- Status bar overlay for fullscreen mode-->

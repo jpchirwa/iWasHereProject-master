@@ -27,6 +27,10 @@ var view4 = myApp.addView('#view-5');
 function onLoad(){
     document.addEventListener("deviceready", onDeviceReady, false);
     document.addEventListener("backbutton", onBackKeyDown, false);
+    window.addEventListener("compassneedscalibration", function (event) {
+        // ask user to wave device in a figure-eight motion  
+        event.preventDefault();
+    }, true);
     function onBackKeyDown(e) {
         e.preventDefault();
         alert('Exiting iWasHere ?');
@@ -34,6 +38,8 @@ function onLoad(){
 }
 function onDeviceReady() {
     map();
+    //info();
+    //watchMapPosition();
     window.plugin.lightsensor.getReading(
 function success(reading) {
     console.log(JSON.stringify(reading));
@@ -50,7 +56,19 @@ function error(message) {
         console.log(dB);
     });
 }
+function login() {
+    var fbLoginSuccess = function (userData) {
+        console.log("UserInfo: ", userData);
+        myApp.closeModal('.login-screen.modal-in')
+        map();
+    }
 
+    facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
+      function loginError(error) {
+          alert(error);
+      }
+    );
+}
 function camera() {
     navigator.camera.getPicture(onSuccess, onFail, {
         quality: 100,
@@ -113,7 +131,11 @@ function info() {
     // This method accepts a Position object, which contains the
     // current GPS coordinates
     //
+    
     var onSuccess = function (position) {
+        DBMeter.start(function (dB) {
+        window.plugin.lightsensor.getReading(
+function success(reading) {
         alert('Latitude: ' + position.coords.latitude + '\n' +
               'Longitude: ' + position.coords.longitude + '\n' +
               'Altitude: ' + position.coords.altitude + '\n' +
@@ -121,7 +143,17 @@ function info() {
               'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
               'Heading: ' + position.coords.heading + '\n' +
               'Speed: ' + position.coords.speed + '\n' +
+              'Lighting: ' + JSON.stringify(reading) + '\n' +
+              'Noise Levels: ' + dB + '\n' +
               'Timestamp: ' + position.timestamp + '\n');
+}, function (e) {
+    alert('code: ' + e.code + ', message: ' + e.message);
+});
+},
+function error(message) {
+    console.log(message);
+}
+)
     };
 
     // onError Callback receives a PositionError object
@@ -131,7 +163,7 @@ function info() {
               'message: ' + error.message + '\n');
     }
 
-    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError,{enableHighAccuracy: true ,timeout: 30000});
+    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError,{enableHighAccuracy: true ,timeout: 3000});
 
 }
 var Latitude = undefined;
@@ -150,6 +182,14 @@ var onMapSuccess = function (position) {
     Longitude = position.coords.longitude;
 
     getMap(Latitude, Longitude);
+
+    nativegeocoder.reverseGeocode(success, failure, Latitude, Longitude, { useLocale: true, maxResults: 1 });
+    function success(result) {
+        alert("The address is: \n\n" + JSON.stringify(result[0]));
+    }
+    function failure(err) {
+        alert(JSON.stringify(err));
+    }
 
 }
 
@@ -177,7 +217,13 @@ function getMap(latitude, longitude) {
     map.setZoom(15);
     map.setCenter(marker.getPosition());
 }
+// Watch your changing position
 
+function watchMapPosition() {
+
+    return navigator.geolocation.watchPosition
+    (onMapWatchSuccess, onMapError, { enableHighAccuracy: true,timeout: 30000 });
+}
 // Success callback for watching your changing position
 
 var onMapWatchSuccess = function (position) {
@@ -193,6 +239,28 @@ var onMapWatchSuccess = function (position) {
         getMap(updatedLatitude, updatedLongitude);
     }
 }
+function getMap(updatedLatitude,updatedLongitude) {
+
+    var mapOptions = {
+        center: new google.maps.LatLng(0, 0),
+        zoom: 1,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map
+    (document.getElementById("map"), mapOptions);
+
+
+    var latLong = new google.maps.LatLng(updatedLatitude, updatedLongitude);
+
+    var marker = new google.maps.Marker({
+        position: latLong
+    });
+
+    marker.setMap(map);
+    map.setZoom(15);
+    map.setCenter(marker.getPosition());
+}
 
 // Error callback
 
@@ -201,13 +269,7 @@ function onMapError(error) {
         'message: ' + error.message + '\n');
 }
 
-// Watch your changing position
 
-function watchMapPosition() {
-
-    return navigator.geolocation.watchPosition
-    (onMapWatchSuccess, onMapError, { enableHighAccuracy: true });
-}
 
 function readURL(input) {
         if (input.files && input.files[0]) {
