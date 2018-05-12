@@ -42,11 +42,6 @@
     },
     "cordova-plugin-nativegeocoder": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-facebook4": {
-      "APP_ID": "264533167348014",
-      "APP_NAME": "Visualize",
-      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {
