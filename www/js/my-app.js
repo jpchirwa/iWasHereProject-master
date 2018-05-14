@@ -8,8 +8,11 @@ var myApp = new Framework7(
         id: 'io.cordova.iWasHere',
         // App name
         name: 'iWasHere',
-      
+
         // ... other parameters
+        view: {
+        reloadPages:true,
+        },
     }
     );
 // Export selectors engine
@@ -24,87 +27,52 @@ var view2 = myApp.addView('#view-2', {
 var view3 = myApp.addView('#view-3');
 var view4 = myApp.addView('#view-4');
 var view4 = myApp.addView('#view-5');
-function onLoad(){
-    document.addEventListener("deviceready", onDeviceReady, false);
-    document.addEventListener("backbutton", onBackKeyDown, false);
-    window.addEventListener("compassneedscalibration", function (event) {
-        // ask user to wave device in a figure-eight motion  
-        event.preventDefault();
-    }, true);
-    function onBackKeyDown(e) {
-        e.preventDefault();
-        alert('Exiting iWasHere ?');
-    }
+function onLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);   
 }
 function onDeviceReady() {
     map();
-    //info();
-    //watchMapPosition();
-    window.plugin.lightsensor.getReading(
-function success(reading) {
-    console.log(JSON.stringify(reading));
-    //alert(JSON.stringify(reading));
-    // Output: {"intensity": 25}
-},
-function error(message) {
-    console.log(message);
-}
-)
-    console.log("ALL SET");
-    console.log(navigator.camera);
-    DBMeter.start(function (dB) {
+    DBMeter.start(function(dB){
         console.log(dB);
     });
-}
-function login() {
-    var fbLoginSuccess = function (userData) {
-        console.log("UserInfo: ", userData);
-        myApp.closeModal('.login-screen.modal-in')
-        map();
+    window.plugin.lightsensor.getReading(
+    function success(reading) {
+        console.log(JSON.stringify(reading));
+    },
+    function error(message) {
+        console.log(message);
     }
+    )
+}
 
-    facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
-      function loginError(error) {
-          alert(error);
-      }
-    );
+function db() {
+    DBMeter.start(function (dB) {
+          if (dB <= 20) {
+              var elementb = document.getElementById('golocation');
+              elementb.innerHTML = "very quiet spot";
+        } if (dB > 20 && dB <= 50) {
+            var elementb = document.getElementById('golocation');
+            elementb.innerHTML = "sound wasnt too loud";
+        } if (dB > 50) {
+            var elementb = document.getElementById('golocation');
+            elementb.innerHTML = "very loud noise recorded";
+        }
+    });
 }
 function camera() {
     navigator.camera.getPicture(onSuccess, onFail, {
         quality: 100,
         destinationType: Camera.DestinationType.DATA_URL,
-        //allowEdit: true,
-        cameraDirection: Camera.Direction.BACK,
-        correctOrientation: true  //Corrects Android orientation quirks
+        cameraDirection: Camera.Direction.FRONT,
+        correctOrientation: true,
     });
     function onSuccess(imageData) {
+        DBMeter.isListening(function (isListening) {
+            alert(isListening);
+        })
+        info();
         var image = document.getElementById('imageFile');
-        image.style.display = 'block';
         image.src = "data:image/jpeg;base64," + imageData;
-        DBMeter.start(function (dB) {
-            alert(dB);
-        }, function (e) {
-            alert('code: ' + e.code + ', message: ' + e.message);
-        });
-        DBMeter.stop(function () {
-            console.log("DBMeter well stopped");
-        }, function (e) {
-            console.log('code: ' + e.code + ', message: ' + e.message);
-        });
-        DBMeter.delete(function () {
-            console.log("Well done !");
-        }, function (e) {
-            console.log('code: ' + e.code + ', message: ' + e.message);
-        });
-        window.plugin.lightsensor.getReading(
-function success(reading) {
-    console.log(JSON.stringify(reading));
-    alert(JSON.stringify(reading));
-},
-function error(message) {
-    console.log(message);
-}
-)
     }
 
     function onFail(message) {
@@ -112,43 +80,42 @@ function error(message) {
     }
 }
 function upload() {
-            document.getElementById("file-input").onchange = function (e) {
-                var file = e.target.files[0]
-                if (file && file.name) {
-                    EXIF.getData(file, function () {
-                        var exifData = EXIF.pretty(this);
-                        if (exifData) {
-                            alert(exifData);
-                        } else {
-                            alert("No EXIF data found in image '" + file.name + "'.");
-                        }
-                    });
+    document.getElementById("file-input").onchange = function (e) {
+        var file = e.target.files[0]
+        if (file && file.name) {
+            EXIF.getData(file, function () {
+                var exifData = EXIF.pretty(this);
+                if (exifData) {
+                    alert(exifData);
+                } else {
+                    alert("No EXIF data found in image '" + file.name + "'.");
                 }
-            }
+            });
         }
+    }
+}
 function info() {
-    // onSuccess Callback
-    // This method accepts a Position object, which contains the
-    // current GPS coordinates
-    //
-    
+    db();
     var onSuccess = function (position) {
-        DBMeter.start(function (dB) {
         window.plugin.lightsensor.getReading(
 function success(reading) {
-        alert('Latitude: ' + position.coords.latitude + '\n' +
-              'Longitude: ' + position.coords.longitude + '\n' +
-              'Altitude: ' + position.coords.altitude + '\n' +
-              'Accuracy: ' + position.coords.accuracy + '\n' +
-              'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-              'Heading: ' + position.coords.heading + '\n' +
-              'Speed: ' + position.coords.speed + '\n' +
-              'Lighting: ' + JSON.stringify(reading) + '\n' +
-              'Noise Levels: ' + dB + '\n' +
-              'Timestamp: ' + position.timestamp + '\n');
-}, function (e) {
-    alert('code: ' + e.code + ', message: ' + e.message);
-});
+    //map();
+    var ts = new Date();
+    var elementb = document.getElementById('golocationdate');
+    elementb.innerHTML = ts.toISOString();
+    console.log(JSON.stringify(reading));
+    var element = document.getElementById('golocation');
+    element.innerHTML =
+        document.getElementById("golocationmap").innerHTML + '<br>' + 
+           JSON.stringify(reading).replace(/\"/g, "").replace(/:/g, "").replace(/[{}]/g, '').replace(/ *, */g, '<br>') + '<br>' +
+          //'Latitude: ' + position.coords.latitude + '\n' +
+          //'Longitude: ' + position.coords.longitude + '\n' +
+          //'Altitude: ' + position.coords.altitude + '\n' +
+          //'Accuracy: ' + position.coords.accuracy + '\n' +
+          //'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+          //'Heading: ' + position.coords.heading + '\n' +
+          //'Speed: ' + position.coords.speed + '\n' +
+          '<hr />' + element.innerHTML;
 },
 function error(message) {
     console.log(message);
@@ -163,8 +130,7 @@ function error(message) {
               'message: ' + error.message + '\n');
     }
 
-    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError,{enableHighAccuracy: true ,timeout: 3000});
-
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
 var Latitude = undefined;
 var Longitude = undefined;
@@ -185,7 +151,8 @@ var onMapSuccess = function (position) {
 
     nativegeocoder.reverseGeocode(success, failure, Latitude, Longitude, { useLocale: true, maxResults: 1 });
     function success(result) {
-        alert("The address is: \n\n" + JSON.stringify(result[0]));
+        var element = document.getElementById('golocationmap');
+        element.innerHTML = JSON.stringify(result[0]).replace(/:/g, "").replace(/\"/g, "").replace(/[{}]/g, '').replace(/ *, */g, '<br>');
     }
     function failure(err) {
         alert(JSON.stringify(err));
@@ -222,7 +189,7 @@ function getMap(latitude, longitude) {
 function watchMapPosition() {
 
     return navigator.geolocation.watchPosition
-    (onMapWatchSuccess, onMapError, { enableHighAccuracy: true,timeout: 30000 });
+    (onMapWatchSuccess, onMapError, { enableHighAccuracy: true, timeout: 30000 });
 }
 // Success callback for watching your changing position
 
@@ -239,7 +206,7 @@ var onMapWatchSuccess = function (position) {
         getMap(updatedLatitude, updatedLongitude);
     }
 }
-function getMap(updatedLatitude,updatedLongitude) {
+function getMap(updatedLatitude, updatedLongitude) {
 
     var mapOptions = {
         center: new google.maps.LatLng(0, 0),
@@ -268,25 +235,3 @@ function onMapError(error) {
     console.log('code: ' + error.code + '\n' +
         'message: ' + error.message + '\n');
 }
-
-
-
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-            
-            reader.readAsDataURL(input.files[0]);
-        }
-        document.getElementById("blah").onclick = function () {
-            EXIF.getData(this, function () {
-                alert(EXIF.pretty(this));
-                location.reload();
-            });
-        }
-    }

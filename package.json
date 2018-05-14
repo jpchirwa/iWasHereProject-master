@@ -5,6 +5,7 @@
   "dependencies": {
     "cordova-android": "^7.0.0",
     "cordova-browser": "^5.0.3",
+    "cordova-plugin-ble-central": "^1.1.9",
     "cordova-plugin-camera": "^4.0.2",
     "cordova-plugin-dbmeter": "^2.1.0",
     "cordova-plugin-device-motion": "^1.2.5",
@@ -33,7 +34,8 @@
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE",
         "PLAY_SERVICES_VERSION": "12.0.0",
-        "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.0",
+        "API_KEY_FOR_IOS": "(API_KEY_FOR_IOS)"
       },
       "cordova-plugin-device-motion": {},
       "cordova-plugin-device-orientation": {},

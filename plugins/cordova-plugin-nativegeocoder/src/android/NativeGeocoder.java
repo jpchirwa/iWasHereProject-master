@@ -97,7 +97,7 @@ public class NativeGeocoder extends CordovaPlugin {
 
                     // https://developer.android.com/reference/android/location/Address.html
                     JSONObject placemark = new JSONObject();
-                    placemark.put("countryCode", address.getCountryCode());
+                    /* placemark.put("countryCode", address.getCountryCode());
                     placemark.put("countryName", address.getCountryName());
                     placemark.put("postalCode", address.getPostalCode());
                     placemark.put("administrativeArea", address.getAdminArea());
@@ -105,9 +105,18 @@ public class NativeGeocoder extends CordovaPlugin {
                     placemark.put("locality", address.getLocality());
                     placemark.put("subLocality", address.getSubLocality());
                     placemark.put("thoroughfare", address.getThoroughfare());
-                    placemark.put("subThoroughfare", address.getSubThoroughfare());
+                    placemark.put("subThoroughfare", address.getSubThoroughfare()); */
 
-                    resultObj.put(placemark);
+					placemark.put("#iWasHere in #", address.getSubAdminArea());
+					placemark.put(" #", address.getSubLocality());
+					placemark.put(" on the #", address.getThoroughfare());
+                    placemark.put(" apt #", address.getSubThoroughfare());
+					placemark.put(" postalCode is #", address.getPostalCode());
+					placemark.put(" guess where ｡◕‿◕｡ #", address.getCountryName());
+					
+
+					
+                    resultObj.put(placemark).toString();
                 }
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, resultObj));

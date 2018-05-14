@@ -271,8 +271,15 @@ public class LightSensor extends CordovaPlugin implements SensorEventListener{
     private JSONObject getReading() throws JSONException {
     	JSONObject obj = new JSONObject();
 
-    	obj.put("intensity", this.intensityRead);
-
+		if(this.intensityRead <= 10.75){
+    	obj.put("....fyi the ☼.☼ light intensity recorded there was ", this.intensityRead + " which is dark ಠ‿↼");
+		}
+		else if(this.intensityRead >=10.75 && this.intensityRead <= 200){
+    	obj.put("the light ☼.☼ intensity recorded was ", this.intensityRead +  " which was normal ಠ‿↼" );
+		}
+		else{
+		obj.put("and the ☼.☼ light intensity recorded was ", this.intensityRead + " which is really bright ಠ‿↼");
+		}
     	return obj;
 
     }

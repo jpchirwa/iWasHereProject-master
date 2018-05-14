@@ -36,3 +36,16 @@ i.tabbar-demo-icon-4 {
         height: 400px;
         width: 100%;
        }
+#imageFile {
+    position: static;
+    width: 100%;
+    height: 500px;
+}
+#golocationdate {
+    position:relative;
+    text-align:right;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+}
+#golocation{
+    font-family:"Comic Sans MS", cursive, sans-serif;
+}
