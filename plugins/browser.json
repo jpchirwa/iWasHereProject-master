@@ -13,16 +13,10 @@
     "cordova-plugin-dbmeter": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-lightsensor": {
+    "cordova-plugin-device-motion": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-media-capture": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-device-orientation": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-geolocation": {
@@ -31,16 +25,22 @@
     "cordova-plugin-googlemaps": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-device-motion": {
+    "cordova-plugin-lightsensor": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-device-orientation": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-x-toast": {
+    "cordova-plugin-media-capture": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-nativegeocoder": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

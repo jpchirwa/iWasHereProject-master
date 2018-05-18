@@ -1,23 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE&libraries=places"></script>
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>iWasHere</title>
-<!-- Path to your custom app styles-->
-<link rel="stylesheet" href="css/my-app.css">
-<!-- Path to Framework7 Library CSS-->
-<link rel="stylesheet" href="css/framework7.ios.min.css">
-<!-- Path to Framework7 Library color and materials CSS-->
-<link rel="stylesheet" href="css/framework7.ios.colors.min.css">
-<link rel="stylesheet" href="css/framework7.material.css">
-<!-- It should be included After main Framework7 styles -->
-<link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamrcyybzmt7RxrtPLSEu1xJaZRhY3omE&libraries=places"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>iWasHere</title>
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <!-- Path to Framework7 Library color and materials CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="css/framework7.material.css">
+    <!-- It should be included After main Framework7 styles -->
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
 </head>
 <body onload="onLoad()">
 <!-- App root element -->
@@ -47,21 +50,27 @@
             <div class="pages">
                 <!-- Page, data-page contains page name-->
                 <div data-page="index-1" class="page">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="center"><h2>iWasHere</h2></div>
+                        </div>
+                    </div>
                     <!-- Scrollable page content-->
                     <div class="page-content">
                         <div class="content-block-title"></div>
-                        <div class="content-block">
+                        <div class="content-block" id="first">
                             <div id="map"></div>
                             <div id="golocationmap"></div>
+                            <div id="golocations"></div>
                             <script>
                             </script>
                             <!--<script async defer
-                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDikOvlH3gYw3-Ui2OsyZvLWOYb5kBG-pw">
-                            </script>-->
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDikOvlH3gYw3-Ui2OsyZvLWOYb5kBG-pw">
+            </script>-->
                             <!--<script async defer
-                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtG9VadUTqakBUsmPXTGqBweeitL1ymtw">
-                            </script>-->
-                            
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtG9VadUTqakBUsmPXTGqBweeitL1ymtw">
+            </script>-->
+
 
                         </div>
                     </div>
@@ -127,7 +136,7 @@
                 <div data-page="index-4" class="page">
                     <div class="navbar">
                         <div class="navbar-inner">
-                            <div class="center">iWasHere Camera</div>
+                            <div class="center"><h2>iWasHere Camera</h2></div>
                         </div>
                     </div>
                     <div class="page-content">
@@ -166,11 +175,9 @@
         <!-- Bottom Tabbar-->
         <div class="toolbar tabbar tabbar-labels">
             <div class="toolbar-inner ">
-                <a href="#view-1" onclick="map();" class="tab-link active"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">Information</span></a>
-                <a href="#view-2" onclick="info();" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Inbox</span></a>
+                <a href="#view-1" onclick="map();" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">Information</span></a>
+                <a href="#view-4" onclick="camera();" class="tab-link active"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Camera</span></a>
                 <a href="#view-3" onclick="upload();" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Upload</span></a>
-                <a href="#view-4" onclick="camera();" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Camera</span></a>
-                <a href="#view-5" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Places</span></a>
             </div>
         </div>
     </div>

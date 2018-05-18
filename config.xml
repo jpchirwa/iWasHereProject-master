@@ -7,7 +7,7 @@
     <access origin="*" />
     <vs:features />
     <preference name="SplashScreen" value="screen" />
-    <preference name="windows-target-version" value="8.1" />
+    <preference name="windows-target-version" value="10.0" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -117,6 +117,9 @@
     <plugin name="cordova-plugin-device-orientation" spec="^1.0.7" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.2" />
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1" />
+    <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />
+    <engine name="ios" spec="4.2.0" />
+    <engine name="windows" spec="4.4.2" />
 </widget>

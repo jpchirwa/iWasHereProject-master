@@ -31,10 +31,21 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);   
 }
 function onDeviceReady() {
-    map();
-    DBMeter.start(function(dB){
-        console.log(dB);
+    var elementb = document.getElementById('golocations');
+    DBMeter.start(function (dB) {
+        if (dB <= 5) {
+            elementb.innerHTML = " #veryQueit";
+        }
+        if (dB >5 && dB <=60) {
+            elementb.innerHTML = " #notasloudhere";
+        }if (dB > 70) {
+            elementb.innerHTML = " #quietloud";
+        }
+    },
+    function (e) {
+        console.log('code: ' + e.code + ', message: ' + e.message);
     });
+    map();
     window.plugin.lightsensor.getReading(
     function success(reading) {
         console.log(JSON.stringify(reading));
@@ -44,21 +55,6 @@ function onDeviceReady() {
     }
     )
 }
-
-function db() {
-    DBMeter.start(function (dB) {
-          if (dB <= 20) {
-              var elementb = document.getElementById('golocation');
-              elementb.innerHTML = "very quiet spot";
-        } if (dB > 20 && dB <= 50) {
-            var elementb = document.getElementById('golocation');
-            elementb.innerHTML = "sound wasnt too loud";
-        } if (dB > 50) {
-            var elementb = document.getElementById('golocation');
-            elementb.innerHTML = "very loud noise recorded";
-        }
-    });
-}
 function camera() {
     navigator.camera.getPicture(onSuccess, onFail, {
         quality: 100,
@@ -67,12 +63,42 @@ function camera() {
         correctOrientation: true,
     });
     function onSuccess(imageData) {
-        DBMeter.isListening(function (isListening) {
-            alert(isListening);
-        })
-        info();
+        view4.router.refreshPage();
         var image = document.getElementById('imageFile');
         image.src = "data:image/jpeg;base64," + imageData;
+        var onSuccess = function (position) {
+            window.plugin.lightsensor.getReading(
+    function success(reading) {
+        var ts = new Date();
+        var elementb = document.getElementById('golocationdate');
+        elementb.innerHTML = ts.toDateString();
+        var element = document.getElementById('golocation');
+        element.innerHTML =
+            document.getElementById("golocationmap").innerHTML + '<br>' +
+               JSON.stringify(reading).replace(/\"/g, "").replace(/:/g, "").replace(/[{}]/g, '').replace(/ *, */g, '<br>') + '<br>' +
+              //'Latitude: ' + position.coords.latitude + '\n' +
+              //'Longitude: ' + position.coords.longitude + '\n' +
+              //'Altitude: ' + position.coords.altitude + '\n' +
+              //'Accuracy: ' + position.coords.accuracy + '\n' +
+              //'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+              //'Heading: ' + position.coords.heading + '\n' +
+              //'Speed: ' + position.coords.speed + '\n' +
+              '<hr />' + element.innerHTML;
+    },
+    function error(message) {
+        console.log(message);
+    }
+    )
+        };
+
+        // onError Callback receives a PositionError object
+        //
+        function onError(error) {
+            alert('code: ' + error.code + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 
     function onFail(message) {
@@ -95,15 +121,12 @@ function upload() {
     }
 }
 function info() {
-    db();
     var onSuccess = function (position) {
         window.plugin.lightsensor.getReading(
 function success(reading) {
-    //map();
     var ts = new Date();
     var elementb = document.getElementById('golocationdate');
-    elementb.innerHTML = ts.toISOString();
-    console.log(JSON.stringify(reading));
+    elementb.innerHTML = ts.toDateString();
     var element = document.getElementById('golocation');
     element.innerHTML =
         document.getElementById("golocationmap").innerHTML + '<br>' + 
@@ -152,7 +175,7 @@ var onMapSuccess = function (position) {
     nativegeocoder.reverseGeocode(success, failure, Latitude, Longitude, { useLocale: true, maxResults: 1 });
     function success(result) {
         var element = document.getElementById('golocationmap');
-        element.innerHTML = JSON.stringify(result[0]).replace(/:/g, "").replace(/\"/g, "").replace(/[{}]/g, '').replace(/ *, */g, '<br>');
+        element.innerHTML = JSON.stringify(result[0]).replace(/:/g, "").replace(/\"/g, "").replace(/[{}]/g, '').replace(/ *, */g, ' ') + document.getElementById('golocations').innerHTML;
     }
     function failure(err) {
         alert(JSON.stringify(err));
